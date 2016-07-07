@@ -28,10 +28,12 @@ $.ajax({
         $blockSale.html(tmpl({products: saleProducts, type: 'Распродажа'}));
         $blockPromo.html(tmpl({products: promoProducts, type: 'Промо-акция'}));
         $blockRecommend.html(tmpl({products: recommendProducts, type: 'Рекомендуемые товары'}));
-        $.fancybox.hideLoading();
     },1000);
 
 }).fail(function (error) {
     console.log(error);
-    $.fancybox.hideLoading();
+}).always(function () {
+    setTimeout(function() {
+        $.fancybox.hideLoading();
+    },1000);
 });
