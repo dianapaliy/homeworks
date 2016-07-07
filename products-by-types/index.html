@@ -12,15 +12,27 @@
     </style>
 </head>
 <body>
-<div id="sale"></div>
-<div id="promo"></div>
-<div id="recommended"></div>
+<div id="sale" class="block"></div>
+<div id="promo" class="block"></div>
+<div id="recommended" class="block"></div>
 
 <!-- Шаблон lodash -->
+<script type="text/template" id="listTemplate">
+    <ul>
+        <% _.each(products,function(product){ %>
+            <li>
+                <h1><%= product.name %></h1>
+                <img src="media/products/<%= product.pic %>" alt="">
+                <span><%= product.price %></span>
+            </li>
+        <% }); %>
+    </ul>
+</script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"
         integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
 <script src="script.js"></script>
