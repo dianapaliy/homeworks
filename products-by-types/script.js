@@ -7,23 +7,26 @@ $.ajax({
         $.fancybox.showLoading();
     }
 }).done(function (products) {
-    var $blockSale = $('#sale'),
-        $blockPromo = $('#promo'),
+    var $blockSale      = $('#sale'),
+        $blockPromo     = $('#promo'),
         $blockRecommend = $('#recommended'),
-        tmpl = _.template($("#listTemplate").html()),
-        saleProducts = products.filter(function(item) {
-            return item.type == 'sale';
-        }),
-        promoProducts = products.filter(function(item) {
-            return item.type == 'promo';
-        }),
-        recommendProducts = products.filter(function(item) {
-            return item.type == 'recommended';
-        });
+        tmpl            = _.template($("#listTemplate").html());
 
-    $blockSale.html(tmpl({products: saleProducts}));
-    $blockPromo.html(tmpl({products: promoProducts}));
-    $blockRecommend.html(tmpl({products: recommendProducts}));
+    var saleProducts = products.filter(function(item) {
+        return item.type == 'sale';
+    });
+
+    var promoProducts = products.filter(function(item) {
+        return item.type == 'promo';
+    });
+
+    var recommendProducts = products.filter(function(item) {
+        return item.type == 'recommended';
+    });
+
+    $blockSale.html(tmpl({products: saleProducts, type: 'Распродажа'}));
+    $blockPromo.html(tmpl({products: promoProducts, type: 'Промо-акция'}));
+    $blockRecommend.html(tmpl({products: recommendProducts, type: 'Рекомендуемые товары'}));
 
 }).fail(function (error) {
     console.log(error);

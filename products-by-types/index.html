@@ -5,31 +5,27 @@
     <title>Товары</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <style>
-        body {
-            margin: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="sale" class="block"></div>
-<div id="promo" class="block"></div>
-<div id="recommended" class="block"></div>
+<div class="product">
+    <div id="sale" class="block"></div>
+    <div id="promo" class="block"></div>
+    <div id="recommended" class="block"></div>
+</div>
 
-<!-- Шаблон lodash -->
 <script type="text/template" id="listTemplate">
-    <h1 class="product__title"></h1>
+    <h1 class="product__title"><%= type %></h1>
     <ul class="product-list">
         <% _.each(products,function(product){ %>
             <li class="product-list__item">
-                <h2 class="product-list__name"><%= product.name %></h2>
                 <img src="media/products/<%= product.pic %>" class="product-list__img" alt="">
-                <span class="product-list__price"><%= product.price %></span>
+                <h2 class="product-list__name"><%= product.name %></h2>
+                <span class="product-list__price">Цена: <%= product.price %>р.</span>
             </li>
         <% }); %>
     </ul>
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"
         integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
