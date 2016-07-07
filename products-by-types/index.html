@@ -18,12 +18,13 @@
 
 <!-- Шаблон lodash -->
 <script type="text/template" id="listTemplate">
-    <ul>
+    <h1 class="product__title"></h1>
+    <ul class="product-list">
         <% _.each(products,function(product){ %>
-            <li>
-                <h1><%= product.name %></h1>
-                <img src="media/products/<%= product.pic %>" alt="">
-                <span><%= product.price %></span>
+            <li class="product-list__item">
+                <h2 class="product-list__name"><%= product.name %></h2>
+                <img src="media/products/<%= product.pic %>" class="product-list__img" alt="">
+                <span class="product-list__price"><%= product.price %></span>
             </li>
         <% }); %>
     </ul>

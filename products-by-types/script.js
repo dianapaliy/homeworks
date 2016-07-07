@@ -1,7 +1,7 @@
 'use strict';
 
 $.ajax({
-    'url': '/products-by-types/products.json',
+    url: '/products-by-types/products.json',
     dataType: 'json',
     beforeSend: function () {
         $.fancybox.showLoading();
@@ -10,26 +10,20 @@ $.ajax({
     var $blockSale = $('#sale'),
         $blockPromo = $('#promo'),
         $blockRecommend = $('#recommended'),
-        $block = $('.block'),
-        $tmpl = $("#listTemplate");
+        tmpl = _.template($("#listTemplate").html()),
+        saleProducts = products.filter(function(item) {
+            return item.type == 'sale';
+        }),
+        promoProducts = products.filter(function(item) {
+            return item.type == 'promo';
+        }),
+        recommendProducts = products.filter(function(item) {
+            return item.type == 'recommended';
+        });
 
-
-
-    var saleProducts = products.filter(function(item) {
-        return item.type == 'sale';
-    });
-
-    var promoProducts = products.filter(function(item) {
-        return item.type == 'promo';
-    });
-
-    var recommendProducts = products.filter(function(item) {
-        return item.type == 'recommended';
-    });
-
-    $blockSale.html(_.template($tmpl.html())({products: saleProducts}));
-    $blockPromo.html(_.template($tmpl.html())({products: promoProducts}));
-    $blockRecommend.html(_.template($tmpl.html())({products: recommendProducts}));
+    $blockSale.html(tmpl({products: saleProducts}));
+    $blockPromo.html(tmpl({products: promoProducts}));
+    $blockRecommend.html(tmpl({products: recommendProducts}));
 
 }).fail(function (error) {
     console.log(error);
