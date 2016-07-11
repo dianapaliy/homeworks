@@ -1,39 +1,38 @@
 'use strict';
 
-$.ajax({
-    url: '/products-by-types/products.json',
-    dataType: 'json',
-    beforeSend: function () {
-        $.fancybox.showLoading();
+$(function() {
+
+    var types = {
+            'promo' : 'Промо-акция',
+            'sale' : 'Распродажа',
+            'recommended' : 'Рекомендуемые товары'
+        };
+
+    function createFilteredArr(products) {
+        var tmpl            = _.template($("#listTemplate").html());
+
+        for (var key in types) {
+            if (types.hasOwnProperty(key)) {
+                var newProducts = products.filter(function(item) {
+                    return item.type === key;
+                });
+                $('#'+key).html(tmpl({products: newProducts, type: types[key]}));
+            }
+        }
     }
-}).done(function (products) {
-    var $blockSale      = $('#sale'),
-        $blockPromo     = $('#promo'),
-        $blockRecommend = $('#recommended'),
-        tmpl            = _.template($("#listTemplate").html());
 
-    var saleProducts = products.filter(function(item) {
-        return item.type === 'sale';
-    });
+    $.ajax({
+        url: '/products-by-types/products.json',
+        dataType: 'json',
+        beforeSend: function () {
+            $.fancybox.showLoading();
+        }
+    }).done(function (products) {
+        createFilteredArr(products);
 
-    var promoProducts = products.filter(function(item) {
-        return item.type === 'promo';
-    });
-
-    var recommendProducts = products.filter(function(item) {
-        return item.type === 'recommended';
-    });
-
-    setTimeout(function() {
-        $blockSale.html(tmpl({products: saleProducts, type: 'Распродажа'}));
-        $blockPromo.html(tmpl({products: promoProducts, type: 'Промо-акция'}));
-        $blockRecommend.html(tmpl({products: recommendProducts, type: 'Рекомендуемые товары'}));
-    },1000);
-
-}).fail(function (error) {
-    console.log(error);
-}).always(function () {
-    setTimeout(function() {
+    }).fail(function (error) {
+        console.log(error);
+    }).always(function () {
         $.fancybox.hideLoading();
-    },1000);
+    });
 });
